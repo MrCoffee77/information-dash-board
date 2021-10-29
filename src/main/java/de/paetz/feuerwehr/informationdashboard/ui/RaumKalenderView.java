@@ -10,11 +10,13 @@ import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import de.paetz.feuerwehr.informationdashboard.model.Raumbelegung;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @PageTitle("Raum Kalender")
 @Route(value = "showCal", layout = MainLayout.class)
@@ -82,15 +84,24 @@ public class RaumKalenderView extends Div implements AfterNavigationObserver {
         card.add(description);
         return card;
     }
+    List<Raumbelegung> raumbelegungList=new ArrayList<>();
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
 
 
-        List<Raumbelegung> raumbelegungList=new ArrayList<>();
         raumbelegungList.add(new Raumbelegung("Unterricht", LocalDateTime.now(),"Testbelegung"));
         raumbelegungList.add(new Raumbelegung("Bereitschaft", LocalDateTime.now(),"Testbelegung"));
         grid.setItems(raumbelegungList);
+
+    }
+
+    @Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
+    public void addItem() {
+        Raumbelegung raumbelegung = new Raumbelegung("Gruppenführer", LocalDateTime.now(), "Testbelegung");
+        raumbelegungList.add(raumbelegung);
+        getUI().ifPresent(ui -> ui.access(() -> { grid.setItems(raumbelegungList);System.out.println("Refreshed");}));
+
     }
 
 

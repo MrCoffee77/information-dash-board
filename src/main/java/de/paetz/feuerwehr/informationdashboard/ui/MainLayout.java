@@ -5,6 +5,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
@@ -20,6 +21,7 @@ import java.util.List;
 @PWA(name = "InformationDashboard", shortName = "InformationDashboard", enableInstallPrompt = false)
 @Theme(themeFolder = "myapp")
 @PageTitle("Main")
+@Push
 public class MainLayout extends AppLayout {
 
     public static class MenuItemInfo {
