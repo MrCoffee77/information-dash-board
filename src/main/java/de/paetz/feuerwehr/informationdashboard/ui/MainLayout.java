@@ -7,9 +7,12 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
+import de.paetz.feuerwehr.informationdashboard.ui.calenderconfig.CalendarConfigurationView;
+import de.paetz.feuerwehr.informationdashboard.ui.raumkalender.RaumKalenderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 @Theme(themeFolder = "myapp")
 @PageTitle("Main")
 @Push
+@Route(value="")
 public class MainLayout extends AppLayout {
 
     public static class MenuItemInfo {
@@ -74,7 +78,7 @@ public class MainLayout extends AppLayout {
     }
 
     private Component createDrawerContent() {
-        H2 appName = new H2("My App");
+        H2 appName = new H2("Informations Dashboard");
         appName.addClassNames("flex", "items-center", "h-xl", "m-0", "px-m", "text-m");
 
         com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
@@ -111,7 +115,7 @@ public class MainLayout extends AppLayout {
 //                new MenuItemInfo("About", "la la-file", AboutView.class), //
 
                 new MenuItemInfo("Raum Kalender", "la la-list", RaumKalenderView.class), //
-
+                new MenuItemInfo("Edit Kalender", "la la-file", CalendarConfigurationView.class), //
         };
         List<RouterLink> links = new ArrayList<>();
         for (MenuItemInfo menuItemInfo : menuItems) {

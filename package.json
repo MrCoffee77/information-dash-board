@@ -7,6 +7,7 @@
       "@polymer/iron-a11y-keys-behavior": "3.0.1",
       "@polymer/iron-fit-behavior": "3.0.2",
       "@polymer/iron-flex-layout": "3.0.1",
+      "@polymer/iron-form": "3.0.1",
       "@polymer/iron-icon": "3.0.1",
       "@polymer/iron-iconset-svg": "3.0.1",
       "@polymer/iron-list": "3.1.0",
@@ -92,13 +93,14 @@
       "webpack-merge": "4.2.2",
       "construct-style-sheets-polyfill": "2.4.6"
     },
-    "hash": "185e5643e6a28f14078dc409adae6df4e4bab56a3bbe354752c53c2c116a979e"
+    "hash": "21704ea302372b6f17be7c716f1164e8695a121a5ae3c430eb4e23c5d0abd41c"
   },
   "dependencies": {
     "@polymer/iron-a11y-announcer": "3.0.2",
     "@polymer/iron-a11y-keys-behavior": "3.0.1",
     "@polymer/iron-fit-behavior": "3.0.2",
     "@polymer/iron-flex-layout": "3.0.1",
+    "@polymer/iron-form": "3.0.1",
     "@polymer/iron-icon": "3.0.1",
     "@polymer/iron-iconset-svg": "3.0.1",
     "@polymer/iron-list": "3.1.0",
