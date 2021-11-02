@@ -8,6 +8,7 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.filter.Filter;
 import net.fortuna.ical4j.filter.predicate.PeriodRule;
 import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +27,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CalenderReadService {
     @Autowired
     CalendarService calendarService;
 
-    public List<Raumbelegung> getBlockedTimes() {
+    public Set<Raumbelegung> getBlockedTimes() {
         List<CalendarConfig> calendars = calendarService.getAllCalendars();
-        List<Raumbelegung> ret=new ArrayList<>();
+        Set<Raumbelegung> ret=new TreeSet<>(Comparator.comparing(Raumbelegung::start));
         calendars.forEach(calendarConfig -> {
             Calendar calendar=readCalenderFromConfig(calendarConfig);
             List<VEvent> events=calendar.getComponents(Component.VEVENT);
