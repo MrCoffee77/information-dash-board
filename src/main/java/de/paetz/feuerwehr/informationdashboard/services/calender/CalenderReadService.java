@@ -5,11 +5,9 @@ import de.paetz.feuerwehr.informationdashboard.model.Raumbelegung;
 import de.paetz.feuerwehr.informationdashboard.services.configuration.CalendarService;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.filter.Filter;
 import net.fortuna.ical4j.filter.predicate.PeriodRule;
-import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.component.CalendarComponent;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +15,12 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.*;
 
 @Service
@@ -59,11 +53,9 @@ public class CalenderReadService {
         today.clear(java.util.Calendar.SECOND);
 
         Period period = new Period(new DateTime(today.getTime()), Duration.ofDays(getDaysToCatch()));
-        PeriodRule periodRule = new PeriodRule(period);
+        PeriodRule<VEvent> periodRule = new PeriodRule<>(period);
 
-        events.stream().filter(periodRule).toList();
         List<VEvent> eventsToday = events.stream().filter(periodRule).toList();
-        DateFormat df = SimpleDateFormat.getDateTimeInstance();
         return eventsToday.stream().map(event -> {
             PeriodList list = event.calculateRecurrenceSet(period);
             return list.stream().map(periodObj -> new Raumbelegung(raum, convert(periodObj.getStart()),convert(periodObj.getEnd()),event.getSummary().getValue() )).toList();
@@ -92,7 +84,7 @@ public class CalenderReadService {
         try {
             HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
 
-            try (InputStream is = response.body(); InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new BufferedReader(isr); Reader reader = new VCardTagFilteringReader(br);) {
+            try (InputStream is = response.body(); InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new BufferedReader(isr); Reader reader = new VCardTagFilteringReader(br)) {
 
                 CalendarBuilder builder = new CalendarBuilder();
                 return builder.build(reader);
@@ -136,7 +128,7 @@ public class CalenderReadService {
         }
 
         @Override
-        public void close() throws IOException {
+        public void close()  {
 
         }
 

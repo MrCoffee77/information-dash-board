@@ -2,6 +2,7 @@ package de.paetz.feuerwehr.informationdashboard.security;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import de.paetz.feuerwehr.informationdashboard.security.entities.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDetails implements UserDetails {
 
-	private User user;
+	private final User user;
 	
 	public MyUserDetails(User user) {
 		this.user = user;
@@ -19,7 +20,7 @@ public class MyUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-		return Arrays.asList(authority);
+		return List.of(authority);
 	}
 
 	@Override

@@ -31,13 +31,7 @@ public class CalendarService {
     public void updateCalendar(String oldName,CalendarConfig config) {
 
         Optional<Calendar> calOpt=repository.findById(oldName);
-        Calendar cal;
-        if (calOpt.isPresent()) {
-            cal = calOpt.get();
-        }
-        else {
-            cal = new Calendar();
-        }
+        Calendar cal=calOpt.orElseGet(Calendar::new);
         cal.setCalendarUri(config.getAddress());
         cal.setCalendarName(config.getName());
         cal.setUserName(config.getUser());

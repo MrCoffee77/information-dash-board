@@ -8,19 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	private static Log LOG= LogFactory.getLog(UserDetailsServiceImpl.class);
+	private static final Log LOG= LogFactory.getLog(UserDetailsServiceImpl.class);
 	@Autowired
 	private UserRepository userRepository;
 
