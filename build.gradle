@@ -1,7 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'com.vaadin' version '0.14.6.0'
+	id 'com.vaadin' version '0.14.8.1'
 	id 'java'
 }
 
@@ -14,9 +14,12 @@ repositories {
 }
 
 ext {
-	set('vaadinVersion', "14.7.2")
+	set('vaadinVersion', "14.8.11")
 }
 
+vaadin {
+	productionMode = true
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.vaadin:vaadin-spring-boot-starter'
